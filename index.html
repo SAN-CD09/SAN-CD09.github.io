@@ -9,21 +9,22 @@
         <link rel="stylesheet" href="./resources/ol.css">
         <link rel="stylesheet" href="./resources/ol3-layerswitcher.css">
         <link rel="stylesheet" href="./resources/qgis2web.css">
-        <style>
-        .ol-geocoder.gcd-gl-container {
-            top: 65px!important;
-        }
-        .ol-geocoder .gcd-gl-btn {
-            width: 21px!important;
-            height: 21px!important;
-        }
-        </style>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <style>
         html, body {
             background-color: #ffffff;
         }
         </style>
-    <link href="http://cdn.jsdelivr.net/openlayers.geocoder/latest/ol3-geocoder.min.css" rel="stylesheet">
+
+        <style>
+        .geolocate {
+            top: 65px;
+            left: .5em;
+        }
+        .ol-touch .geolocate {
+            top: 80px;
+        }
+        </style>
         <style>
         html, body, #map {
             width: 100%;
@@ -46,9 +47,8 @@
         <script src="./resources/functions.js"></script>
         <script src="./resources/ol.js"></script>
         <script src="./resources/ol3-layerswitcher.js"></script>
-    <script src="http://cdn.jsdelivr.net/openlayers.geocoder/latest/ol3-geocoder.js"></script>
-        <script src="layers/ZoneTechnique_0.js"></script><script src="layers/Habitation_1.js"></script>
-        <script src="styles/ZoneTechnique_0_style.js"></script><script src="styles/Habitation_1_style.js"></script>
+        <script src="layers/ZoneTechnique_0.js"></script><script src="layers/Commune_1.js"></script><script src="layers/Phases_2.js"></script><script src="layers/Habitation_3.js"></script>
+        <script src="styles/ZoneTechnique_0_style.js"></script><script src="styles/Commune_1_style.js"></script><script src="styles/Phases_2_style.js"></script><script src="styles/Habitation_3_style.js"></script>
         <script src="./layers/layers.js" type="text/javascript"></script> 
         <script src="./resources/qgis2web.js"></script>
         <script src="./resources/Autolinker.min.js"></script>
