@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/Control.OSMGeocoder.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -31,6 +32,7 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/Control.OSMGeocoder.js"></script>
         <script src="js/leaflet-search.js"></script>
         <script src="data/ZoneTechnique_0.js"></script>
         <script src="data/Commune_1.js"></script>
@@ -38,7 +40,7 @@
         <script src="data/Habitation_3.js"></script>
         <script>
         var map = L.map('map', {
-            zoomControl:true, maxZoom:20, minZoom:9
+            zoomControl:true, maxZoom:18, minZoom:9
         }).fitBounds([[42.5376054605,0.7522852314],[43.3452992628,2.25602840962]]);
         var hash = new L.Hash(map);
         map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
@@ -46,7 +48,7 @@
         var bounds_group = new L.featureGroup([]);
         var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-            maxZoom: 20
+            maxZoom: 18
         });
         basemap0.addTo(map);
         function setBounds() {
@@ -250,9 +252,6 @@
         function pop_Habitation_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['IdentifiantImmeuble'] !== null ? Autolinker.link(String(feature.properties['IdentifiantImmeuble'])) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <td colspan="2">' + (feature.properties['Adresse'] !== null ? Autolinker.link(String(feature.properties['Adresse'])) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -297,21 +296,6 @@
                 fillColor: 'rgba(251,154,153,1.0)',
             }
                     break;
-                case 'En étude':
-                    return {
-                pane: 'pane_Habitation_3',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(227,26,28,1.0)',
-            }
-                    break;
                 case 'En travaux':
                     return {
                 pane: 'pane_Habitation_3',
@@ -325,6 +309,21 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,255,1,1.0)',
+            }
+                    break;
+                case 'En etude':
+                    return {
+                pane: 'pane_Habitation_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
             }
                     break;
             }
@@ -357,9 +356,9 @@
             } else if (map.getZoom() > 19 || map.getZoom() < 2) {
                 map.removeLayer(layer_Phases_2);
             }
-            if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 13) {
                 map.addLayer(layer_Habitation_3);
-            } else if (map.getZoom() > 19 || map.getZoom() < 14) {
+            } else if (map.getZoom() > 19 || map.getZoom() < 13) {
                 map.removeLayer(layer_Habitation_3);
             }
         });
@@ -373,9 +372,9 @@
             } else if (map.getZoom() > 19 || map.getZoom() < 2) {
                 map.removeLayer(layer_Phases_2);
             }
-            if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 13) {
                 map.addLayer(layer_Habitation_3);
-            } else if (map.getZoom() > 19 || map.getZoom() < 14) {
+            } else if (map.getZoom() > 19 || map.getZoom() < 13) {
                 map.removeLayer(layer_Habitation_3);
             }
         var title = new L.Control();
@@ -388,14 +387,20 @@
             this._div.innerHTML = '<h2>Déploiement de la Fibre en Ariège</h2>';
         };
         title.addTo(map);
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            collapsed: false,
+            position: 'topright',
+            text: 'Search',
+        });
+        osmGeocoder.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Habitation<br /><table><tr><td style="text-align: center;"><img src="legend/Habitation_3_Commercialisable0.png" /></td><td>Commercialisable</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_CommercialisableRD1.png" /></td><td>Commercialisable RD</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_Entude2.png" /></td><td>En étude</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_Entravaux3.png" /></td><td>En travaux</td></tr></table>': layer_Habitation_3,'Phases<br /><table><tr><td style="text-align: center;"><img src="legend/Phases_2_AMII0.png" /></td><td>AMII</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme011.png" /></td><td>Afferme 01</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Concessif012.png" /></td><td>Concessif 01</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme023.png" /></td><td>Afferme 02</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Concessif024.png" /></td><td>Concessif 02</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme035.png" /></td><td>Afferme 03</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme046.png" /></td><td>Afferme 04</td></tr></table>': layer_Phases_2,'<img src="legend/Commune_1.png" /> Commune': layer_Commune_1,'<img src="legend/ZoneTechnique_0.png" /> Zone Technique': layer_ZoneTechnique_0,}).addTo(map);
+        L.control.layers(baseMaps,{'Habitation<br /><table><tr><td style="text-align: center;"><img src="legend/Habitation_3_Commercialisable0.png" /></td><td>Commercialisable</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_CommercialisableRD1.png" /></td><td>Commercialisable RD</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_Entravaux2.png" /></td><td>En travaux</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_Enetude3.png" /></td><td>En etude</td></tr></table>': layer_Habitation_3,'Phases<br /><table><tr><td style="text-align: center;"><img src="legend/Phases_2_AMII0.png" /></td><td>AMII</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme011.png" /></td><td>Afferme 01</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Concessif012.png" /></td><td>Concessif 01</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme023.png" /></td><td>Afferme 02</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Concessif024.png" /></td><td>Concessif 02</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme035.png" /></td><td>Afferme 03</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme046.png" /></td><td>Afferme 04</td></tr></table>': layer_Phases_2,'<img src="legend/Commune_1.png" /> Commune': layer_Commune_1,'<img src="legend/ZoneTechnique_0.png" /> Zone Technique': layer_ZoneTechnique_0,}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_Habitation_3,
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'IdentifiantImmeuble'}));
+            propertyName: 'Adresse'}));
         </script>
     </body>
 </html>
