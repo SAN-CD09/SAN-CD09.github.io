@@ -61,7 +61,9 @@ var jsonSource_Habitation_3 = new ol.source.Vector({
 });
 jsonSource_Habitation_3.addFeatures(features_Habitation_3);var lyr_Habitation_3 = new ol.layer.Vector({
                 declutter: true,
-                source:jsonSource_Habitation_3, maxResolution:8.40133984568,
+                source:jsonSource_Habitation_3,
+minResolution:-1.30405957588e-13,
+ maxResolution:8.40133984568,
 
                 style: style_Habitation_3,
     title: 'Habitation<br />\
@@ -80,11 +82,11 @@ lyr_Habitation_3.set('fieldAliases', {'IdentifiantImmeuble': 'IdentifiantImmeubl
 lyr_ZoneTechnique_0.set('fieldImages', {'ZS_CODE': 'Hidden', 'ST_CODE': 'Hidden', 'PHASE': 'Hidden', 'TRIGRAMME': 'Hidden', 'NRO': 'Hidden', 'NB_EL': 'Hidden', 'ZONE': 'TextEdit', 'SRO_X': 'Hidden', 'SRO_Y': 'Hidden', 'SOURCE': 'Hidden', 'N20200311_': 'Hidden', 'N202003112': 'Hidden', 'N202003113': 'Hidden', 'TRAVAUX': 'TextEdit', 'COMMERCIAL': 'TextEdit', });
 lyr_Commune_1.set('fieldImages', {'INSEE': 'Hidden', 'NOM': 'Hidden', 'COMMUNES': 'Hidden', 'AFFICHAGE': 'Hidden', 'CANTON': 'Hidden', });
 lyr_Phases_2.set('fieldImages', {'ZS_CODE': 'Hidden', 'ST_CODE': 'Hidden', 'PHASE': 'Hidden', 'TRIGRAMME': 'Hidden', 'NRO': 'Hidden', 'NB_EL': 'Hidden', 'ZONE': 'TextEdit', 'SRO_X': 'Hidden', 'SRO_Y': 'Hidden', 'SOURCE': 'Hidden', 'N20200311_': 'Hidden', 'N202003112': 'Hidden', 'N202003113': 'Hidden', 'TRAVAUX': 'TextEdit', 'COMMERCIAL': 'TextEdit', });
-lyr_Habitation_3.set('fieldImages', {'IdentifiantImmeuble': 'Hidden', 'CodePostalImmeuble': 'Hidden', 'CommuneImmeuble': 'Hidden', 'TypeVoieImmeuble': 'Hidden', 'NomVoieImmeuble': 'Hidden', 'NumeroVoieImmeuble': 'Hidden', 'ComplementNumeroVoieImmeuble': 'Hidden', 'EtatImmeuble': 'Hidden', 'DateSignatureConvention': 'Hidden', 'ReferencePM': 'Hidden', 'EtatPM': 'Hidden', 'CoordonneeImmeubleX': 'Hidden', 'CoordonneeImmeubleY': 'Hidden', 'Adresse': 'TextEdit', 'Travaux': 'TextEdit', 'Commercialisation': 'TextEdit', 'Adresse_formule': 'Hidden', });
+lyr_Habitation_3.set('fieldImages', {'IdentifiantImmeuble': 'TextEdit', 'CodePostalImmeuble': 'Hidden', 'CommuneImmeuble': 'Hidden', 'TypeVoieImmeuble': 'Hidden', 'NomVoieImmeuble': 'Hidden', 'NumeroVoieImmeuble': 'Hidden', 'ComplementNumeroVoieImmeuble': 'Hidden', 'EtatImmeuble': 'Hidden', 'DateSignatureConvention': 'Hidden', 'ReferencePM': 'Hidden', 'EtatPM': 'Hidden', 'CoordonneeImmeubleX': 'Hidden', 'CoordonneeImmeubleY': 'Hidden', 'Adresse': 'TextEdit', 'Travaux': 'TextEdit', 'Commercialisation': 'TextEdit', 'Adresse_formule': 'Hidden', });
 lyr_ZoneTechnique_0.set('fieldLabels', {'ZONE': 'no label', 'TRAVAUX': 'no label', 'COMMERCIAL': 'no label', });
 lyr_Commune_1.set('fieldLabels', {});
 lyr_Phases_2.set('fieldLabels', {'ZONE': 'no label', 'TRAVAUX': 'header label', 'COMMERCIAL': 'header label', });
-lyr_Habitation_3.set('fieldLabels', {'Adresse': 'no label', 'Travaux': 'header label', 'Commercialisation': 'header label', });
+lyr_Habitation_3.set('fieldLabels', {'IdentifiantImmeuble': 'no label', 'Adresse': 'no label', 'Travaux': 'header label', 'Commercialisation': 'header label', });
 lyr_Habitation_3.on('precompose', function(evt) {
     evt.context.globalCompositeOperation = 'normal';
 });

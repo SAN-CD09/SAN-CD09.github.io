@@ -51,13 +51,22 @@ var map = new ol.Map({
     overlays: [overlayPopup],
     layers: layersList,
     view: new ol.View({
-        extent: [83744.008891, 5241853.438035, 251139.933774, 5364678.477226], maxZoom: 28, minZoom: 1
+        extent: [83744.008891, 5241853.438035, 251139.933774, 5364678.477226], maxZoom: 20, minZoom: 9
     })
 });
 
 var layerSwitcher = new ol.control.LayerSwitcher({tipLabel: "Layers"});
 map.addControl(layerSwitcher);
 
+    var searchLayer = new ol.SearchLayer({
+      layer: lyr_Habitation_3,
+      colName: 'IdentifiantImmeuble',
+      zoom: 10,
+      collapsed: true,
+      map: map
+    });
+
+    map.addControl(searchLayer);
 map.getView().fit([83744.008891, 5241853.438035, 251139.933774, 5364678.477226], map.getSize());
 
 var NO_POPUP = 0
