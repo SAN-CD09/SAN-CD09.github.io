@@ -37,11 +37,11 @@
         <script src="data/ZoneTechnique_0.js"></script>
         <script src="data/Commune_1.js"></script>
         <script src="data/Phases_2.js"></script>
-        <script src="data/Habitation_3.js"></script>
+        <script src="data/Logements_3.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:18, minZoom:9
-        }).fitBounds([[42.5376054605,0.7522852314],[43.3452992628,2.25602840962]]);
+        }).fitBounds([[42.5367173457,0.710497205204],[43.3455824512,2.29841845983]]);
         var hash = new L.Hash(map);
         map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
         L.control.locate().addTo(map);
@@ -249,10 +249,13 @@
         });
         bounds_group.addLayer(layer_Phases_2);
         map.addLayer(layer_Phases_2);
-        function pop_Habitation_3(feature, layer) {
+        function pop_Logements_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Adresse'] !== null ? Autolinker.link(String(feature.properties['Adresse'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EtatImmeuble'] !== null ? Autolinker.link(String(feature.properties['EtatImmeuble'])) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <td colspan="2"><strong>Travaux</strong><br />' + (feature.properties['Travaux'] !== null ? Autolinker.link(String(feature.properties['Travaux'])) : '') + '</td>\
@@ -264,11 +267,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Habitation_3_0(feature) {
-            switch(String(feature.properties['q2wHide_EtatImmeuble'])) {
+        function style_Logements_3_0(feature) {
+            switch(String(feature.properties['EtatImmeuble'])) {
                 case 'Commercialisable':
                     return {
-                pane: 'pane_Habitation_3',
+                pane: 'pane_Logements_3',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -283,7 +286,7 @@
                     break;
                 case 'Commercialisable RD':
                     return {
-                pane: 'pane_Habitation_3',
+                pane: 'pane_Logements_3',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -298,7 +301,7 @@
                     break;
                 case 'En travaux':
                     return {
-                pane: 'pane_Habitation_3',
+                pane: 'pane_Logements_3',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -313,7 +316,7 @@
                     break;
                 case 'En etude':
                     return {
-                pane: 'pane_Habitation_3',
+                pane: 'pane_Logements_3',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -328,23 +331,23 @@
                     break;
             }
         }
-        map.createPane('pane_Habitation_3');
-        map.getPane('pane_Habitation_3').style.zIndex = 403;
-        map.getPane('pane_Habitation_3').style['mix-blend-mode'] = 'normal';
-        var layer_Habitation_3 = new L.geoJson(json_Habitation_3, {
+        map.createPane('pane_Logements_3');
+        map.getPane('pane_Logements_3').style.zIndex = 403;
+        map.getPane('pane_Logements_3').style['mix-blend-mode'] = 'normal';
+        var layer_Logements_3 = new L.geoJson(json_Logements_3, {
             attribution: '<a href=""></a>',
-            pane: 'pane_Habitation_3',
-            onEachFeature: pop_Habitation_3,
+            pane: 'pane_Logements_3',
+            onEachFeature: pop_Logements_3,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Habitation_3_0(feature));
+                return L.circleMarker(latlng, style_Logements_3_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Habitation_3);
-        map.addLayer(layer_Habitation_3);
+        bounds_group.addLayer(layer_Logements_3);
+        map.addLayer(layer_Logements_3);
         map.on("zoomend", function(e) {
             if (map.getZoom() <= 19 && map.getZoom() >= 2) {
                 map.addLayer(layer_ZoneTechnique_0);
@@ -357,9 +360,9 @@
                 map.removeLayer(layer_Phases_2);
             }
             if (map.getZoom() <= 19 && map.getZoom() >= 13) {
-                map.addLayer(layer_Habitation_3);
+                map.addLayer(layer_Logements_3);
             } else if (map.getZoom() > 19 || map.getZoom() < 13) {
-                map.removeLayer(layer_Habitation_3);
+                map.removeLayer(layer_Logements_3);
             }
         });
             if (map.getZoom() <= 19 && map.getZoom() >= 2) {
@@ -373,9 +376,9 @@
                 map.removeLayer(layer_Phases_2);
             }
             if (map.getZoom() <= 19 && map.getZoom() >= 13) {
-                map.addLayer(layer_Habitation_3);
+                map.addLayer(layer_Logements_3);
             } else if (map.getZoom() > 19 || map.getZoom() < 13) {
-                map.removeLayer(layer_Habitation_3);
+                map.removeLayer(layer_Logements_3);
             }
         var title = new L.Control();
         title.onAdd = function (map) {
@@ -394,10 +397,10 @@
         });
         osmGeocoder.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Habitation<br /><table><tr><td style="text-align: center;"><img src="legend/Habitation_3_Commercialisable0.png" /></td><td>Commercialisable</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_CommercialisableRD1.png" /></td><td>Commercialisable RD</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_Entravaux2.png" /></td><td>En travaux</td></tr><tr><td style="text-align: center;"><img src="legend/Habitation_3_Enetude3.png" /></td><td>En etude</td></tr></table>': layer_Habitation_3,'Phases<br /><table><tr><td style="text-align: center;"><img src="legend/Phases_2_AMII0.png" /></td><td>AMII</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme011.png" /></td><td>Afferme 01</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Concessif012.png" /></td><td>Concessif 01</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme023.png" /></td><td>Afferme 02</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Concessif024.png" /></td><td>Concessif 02</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme035.png" /></td><td>Afferme 03</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme046.png" /></td><td>Afferme 04</td></tr></table>': layer_Phases_2,'<img src="legend/Commune_1.png" /> Commune': layer_Commune_1,'<img src="legend/ZoneTechnique_0.png" /> Zone Technique': layer_ZoneTechnique_0,}).addTo(map);
+        L.control.layers(baseMaps,{'Logements<br /><table><tr><td style="text-align: center;"><img src="legend/Logements_3_Commercialisable0.png" /></td><td>Commercialisable</td></tr><tr><td style="text-align: center;"><img src="legend/Logements_3_CommercialisableRD1.png" /></td><td>Commercialisable RD</td></tr><tr><td style="text-align: center;"><img src="legend/Logements_3_Entravaux2.png" /></td><td>En travaux</td></tr><tr><td style="text-align: center;"><img src="legend/Logements_3_Enetude3.png" /></td><td>En etude</td></tr></table>': layer_Logements_3,'Phases<br /><table><tr><td style="text-align: center;"><img src="legend/Phases_2_AMII0.png" /></td><td>AMII</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme011.png" /></td><td>Afferme 01</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Concessif012.png" /></td><td>Concessif 01</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme023.png" /></td><td>Afferme 02</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Concessif024.png" /></td><td>Concessif 02</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme035.png" /></td><td>Afferme 03</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_2_Afferme046.png" /></td><td>Afferme 04</td></tr></table>': layer_Phases_2,'<img src="legend/Commune_1.png" /> Commune': layer_Commune_1,'<img src="legend/ZoneTechnique_0.png" /> Zone Technique': layer_ZoneTechnique_0,}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
-            layer: layer_Habitation_3,
+            layer: layer_Logements_3,
             initial: false,
             hideMarkerOnCollapse: true,
             propertyName: 'Adresse'}));
