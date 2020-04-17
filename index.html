@@ -41,7 +41,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:18, minZoom:9
-        }).fitBounds([[42.5367173457,0.710497205204],[43.3455824512,2.29841845983]]);
+        }).fitBounds([[42.5485547327,0.649783044186],[43.3585985946,2.27642545785]]);
         var hash = new L.Hash(map);
         map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
         L.control.locate().addTo(map);
@@ -359,9 +359,9 @@
             } else if (map.getZoom() > 19 || map.getZoom() < 2) {
                 map.removeLayer(layer_Phases_2);
             }
-            if (map.getZoom() <= 19 && map.getZoom() >= 13) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 14) {
                 map.addLayer(layer_Logements_3);
-            } else if (map.getZoom() > 19 || map.getZoom() < 13) {
+            } else if (map.getZoom() > 19 || map.getZoom() < 14) {
                 map.removeLayer(layer_Logements_3);
             }
         });
@@ -375,9 +375,9 @@
             } else if (map.getZoom() > 19 || map.getZoom() < 2) {
                 map.removeLayer(layer_Phases_2);
             }
-            if (map.getZoom() <= 19 && map.getZoom() >= 13) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 14) {
                 map.addLayer(layer_Logements_3);
-            } else if (map.getZoom() > 19 || map.getZoom() < 13) {
+            } else if (map.getZoom() > 19 || map.getZoom() < 14) {
                 map.removeLayer(layer_Logements_3);
             }
         var title = new L.Control();
