@@ -43,11 +43,11 @@
 
             if (e.target.feature.geometry.type === 'LineString') {
               highlightLayer.setStyle({
-                color: '#ffff00',
+                color: '#ffe693',
               });
             } else {
               highlightLayer.setStyle({
-                fillColor: '#ffff00',
+                fillColor: '#ffe693',
                 fillOpacity: 1
               });
             }
@@ -360,7 +360,6 @@
             },
         });
         bounds_group.addLayer(layer_Logements_3);
-        map.addLayer(layer_Logements_3);
         map.on("zoomend", function(e) {
             if (map.getZoom() <= 19 && map.getZoom() >= 2) {
                 map.addLayer(layer_ZoneTechnique_0);
