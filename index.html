@@ -54,7 +54,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:18, minZoom:9
-        }).fitBounds([[42.530914790666806,0.41958571072610185],[43.34695562405677,2.5642720619825905]]);
+        }).fitBounds([[42.53143091534369,0.44161279230902956],[43.34686336587094,2.54251936777901]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -98,7 +98,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(182,109,194,0.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_Commune_1');
@@ -106,7 +106,7 @@
         map.getPane('pane_Commune_1').style['mix-blend-mode'] = 'normal';
         var layer_Commune_1 = new L.geoJson(json_Commune_1, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_Commune_1',
             layerName: 'layer_Commune_1',
             pane: 'pane_Commune_1',
@@ -137,7 +137,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(168,168,168,0.0)',
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_ZoneTechnique_2');
@@ -145,7 +145,7 @@
         map.getPane('pane_ZoneTechnique_2').style['mix-blend-mode'] = 'normal';
         var layer_ZoneTechnique_2 = new L.geoJson(json_ZoneTechnique_2, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_ZoneTechnique_2',
             layerName: 'layer_ZoneTechnique_2',
             pane: 'pane_ZoneTechnique_2',
@@ -313,23 +313,26 @@
                         <td colspan="2">' + (feature.properties['Adresse'] !== null ? autolinker.link(feature.properties['Adresse'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2"><strong>Eligible</strong><br />' + (feature.properties['Eligible'] !== null ? autolinker.link(feature.properties['Eligible'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Je peux contacter mon operateur</strong><br />' + (feature.properties['Je peux contacter mon operateur'] !== null ? autolinker.link(feature.properties['Je peux contacter mon operateur'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2"><strong>Date</strong><br />' + (feature.properties['Date'] !== null ? autolinker.link(feature.properties['Date'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['adresse web'] !== null ? autolinker.link(feature.properties['adresse web'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Date previsionnelle</strong><br />' + (feature.properties['Date previsionnelle'] !== null ? autolinker.link(feature.properties['Date previsionnelle'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
         function style_Jepeuxcontactermonoprateur_4_0(feature) {
-            switch(String(feature.properties['Eligible'])) {
+            switch(String(feature.properties['Je peux contacter mon operateur'])) {
                 case 'Oui':
                     return {
                 pane: 'pane_Jepeuxcontactermonoprateur_4',
                 radius: 4.0,
                 opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
+                color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
@@ -340,12 +343,12 @@
                 interactive: true,
             }
                     break;
-                case 'Oui à la demande':
+                case 'Presque, je dois au prealable demander la fin des travaux sur le site d\'Ariege Tres Haut Debit':
                     return {
                 pane: 'pane_Jepeuxcontactermonoprateur_4',
                 radius: 4.0,
                 opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
+                color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
@@ -356,12 +359,12 @@
                 interactive: true,
             }
                     break;
-                case 'Non':
+                case 'Prochainement, les travaux ne sont pas totalement realises':
                     return {
                 pane: 'pane_Jepeuxcontactermonoprateur_4',
                 radius: 4.0,
                 opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
+                color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
@@ -393,6 +396,7 @@
             },
         });
         bounds_group.addLayer(layer_Jepeuxcontactermonoprateur_4);
+        map.addLayer(layer_Jepeuxcontactermonoprateur_4);
         map.on("zoomend", function(e) {
             if (map.getZoom() <= 19 && map.getZoom() >= 2) {
                 map.addLayer(layer_ZoneTechnique_2);
@@ -404,9 +408,9 @@
             } else if (map.getZoom() > 19 || map.getZoom() < 2) {
                 map.removeLayer(layer_Phases_3);
             }
-            if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 13) {
                 map.addLayer(layer_Jepeuxcontactermonoprateur_4);
-            } else if (map.getZoom() > 19 || map.getZoom() < 14) {
+            } else if (map.getZoom() > 19 || map.getZoom() < 13) {
                 map.removeLayer(layer_Jepeuxcontactermonoprateur_4);
             }
         });
@@ -420,9 +424,9 @@
             } else if (map.getZoom() > 19 || map.getZoom() < 2) {
                 map.removeLayer(layer_Phases_3);
             }
-            if (map.getZoom() <= 19 && map.getZoom() >= 14) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 13) {
                 map.addLayer(layer_Jepeuxcontactermonoprateur_4);
-            } else if (map.getZoom() > 19 || map.getZoom() < 14) {
+            } else if (map.getZoom() > 19 || map.getZoom() < 13) {
                 map.removeLayer(layer_Jepeuxcontactermonoprateur_4);
             }
             var title = new L.Control();
@@ -436,7 +440,7 @@
             };
             title.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Je peux contacter mon opérateur<br /><table><tr><td style="text-align: center;"><img src="legend/Jepeuxcontactermonoprateur_4_Oui0.png" /></td><td>Oui</td></tr><tr><td style="text-align: center;"><img src="legend/Jepeuxcontactermonoprateur_4_PresquejedoisaupréalabledemanderlafindestravauxsurlesitedAriègeTrèsHautDébit1.png" /></td><td>Presque, je dois au préalable demander la fin des travaux sur le site d\'Ariège Très Haut Débit</td></tr><tr><td style="text-align: center;"><img src="legend/Jepeuxcontactermonoprateur_4_Prochainementlestravauxnesontpastotalementréalisés2.png" /></td><td>Prochainement, les travaux ne sont pas totalement réalisés</td></tr></table>': layer_Jepeuxcontactermonoprateur_4,'Phases<br /><table><tr><td style="text-align: center;"><img src="legend/Phases_3_AMII0.png" /></td><td>AMII</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_201820201.png" /></td><td>2018-2020</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_201820202.png" /></td><td>2018-2020</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_202020213.png" /></td><td>2020-2021</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_202020214.png" /></td><td>2020-2021</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_202120235.png" /></td><td>2021-2023</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_202320256.png" /></td><td>2023-2025</td></tr></table>': layer_Phases_3,'<img src="legend/ZoneTechnique_2.png" /> Zone Technique': layer_ZoneTechnique_2,'<img src="legend/Commune_1.png" /> Commune': layer_Commune_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
+        L.control.layers(baseMaps,{'Je peux contacter mon opérateur<br /><table><tr><td style="text-align: center;"><img src="legend/Jepeuxcontactermonoprateur_4_Oui0.png" /></td><td>Oui</td></tr><tr><td style="text-align: center;"><img src="legend/Jepeuxcontactermonoprateur_4_PresquejedoisauprealabledemanderlafindestravauxsurlesitedAriegeTresHautDebit1.png" /></td><td>Presque, je dois au prealable demander la fin des travaux sur le site d\'Ariege Tres Haut Debit</td></tr><tr><td style="text-align: center;"><img src="legend/Jepeuxcontactermonoprateur_4_Prochainementlestravauxnesontpastotalementrealises2.png" /></td><td>Prochainement, les travaux ne sont pas totalement realises</td></tr></table>': layer_Jepeuxcontactermonoprateur_4,'Phases<br /><table><tr><td style="text-align: center;"><img src="legend/Phases_3_AMII0.png" /></td><td>AMII</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_201820201.png" /></td><td>2018-2020</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_201820202.png" /></td><td>2018-2020</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_202020213.png" /></td><td>2020-2021</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_202020214.png" /></td><td>2020-2021</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_202120235.png" /></td><td>2021-2023</td></tr><tr><td style="text-align: center;"><img src="legend/Phases_3_202320256.png" /></td><td>2023-2025</td></tr></table>': layer_Phases_3,'<img src="legend/ZoneTechnique_2.png" /> Zone Technique': layer_ZoneTechnique_2,'<img src="legend/Commune_1.png" /> Commune': layer_Commune_1,"OpenStreetMap": layer_OpenStreetMap_0,}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
             layer: layer_Jepeuxcontactermonoprateur_4,
